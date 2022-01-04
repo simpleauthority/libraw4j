@@ -1,0 +1,5 @@
+rootProject.name = 'libraw4j'
+
+include 'libraw4j-core'
+include 'libraw4j-native-api'
+

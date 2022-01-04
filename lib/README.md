@@ -1,0 +1,1 @@
+This directory contains library header files for organizational purposes.
