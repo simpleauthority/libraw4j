@@ -36,9 +36,9 @@ public final class LibRaw {
         Logger.info("Loading native libraries...");
 
         if (OperatingSystemUtil.isWindows()) {
-            NativeUtil.loadLibraryFromJar("lib/windows/x64/libraw.dll");
+            NativeUtil.loadLibraryFromJar("/lib/windows/x64/libraw.dll");
         } else if (OperatingSystemUtil.isMac()) {
-            NativeUtil.loadLibraryFromJar("lib/mac/x64/libraw_r.20.dylib");
+            NativeUtil.loadLibraryFromJar("/lib/mac/x64/libraw_r.20.dylib");
         } else if (OperatingSystemUtil.isUnix()) {
             NativeUtil.loadLibraryFromJar(("/lib/linux/x64/libraw_r.20.so"));
         } else {
