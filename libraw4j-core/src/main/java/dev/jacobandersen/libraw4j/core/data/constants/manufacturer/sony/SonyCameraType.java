@@ -5,12 +5,12 @@ package dev.jacobandersen.libraw4j.core.data.constants.manufacturer.sony;
  * @since 1.0.0-SNAPSHOT
  */
 public enum SonyCameraType {
-        DSC(1),
-        DSLR(2),
-        NEX(3),
-        SLT(4),
-        ILCE(5),
-        ILCA(6);
+    DSC(1),
+    DSLR(2),
+    NEX(3),
+    SLT(4),
+    ILCE(5),
+    ILCA(6);
 
     private final int value;
 

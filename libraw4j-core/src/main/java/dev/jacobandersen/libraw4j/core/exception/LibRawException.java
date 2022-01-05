@@ -10,4 +10,8 @@ public class LibRawException extends RuntimeException {
     public LibRawException(String message) {
         super(message);
     }
+
+    public LibRawException(String message, Throwable cause) {
+        super(message, cause);
+    }
 }

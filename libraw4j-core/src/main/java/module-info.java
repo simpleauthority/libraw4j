@@ -2,7 +2,7 @@ module dev.jacobandersen.libraw4j.core {
     // Needed at runtime
     requires org.libraw;
     requires org.tinylog.api;
-    requires com.google.common;
+    requires java.desktop;
     requires jdk.incubator.foreign;
 
     // Needed at compile time

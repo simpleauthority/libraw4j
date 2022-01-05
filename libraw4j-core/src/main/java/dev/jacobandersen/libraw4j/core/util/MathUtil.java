@@ -12,7 +12,7 @@ public class MathUtil {
      * Rounds a double to the specified number of decimal places.
      * <p>https://stackoverflow.com/a/2808648/5616667</p>
      *
-     * @param value the value to round
+     * @param value  the value to round
      * @param places the number of decimal places to round to
      * @return the rounded value
      */

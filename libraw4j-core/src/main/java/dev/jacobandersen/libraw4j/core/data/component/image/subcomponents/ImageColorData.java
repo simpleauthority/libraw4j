@@ -1,9 +1,7 @@
 package dev.jacobandersen.libraw4j.core.data.component.image.subcomponents;
 
-import jdk.incubator.foreign.MemoryAddress;
 import jdk.incubator.foreign.MemoryLayout;
 import jdk.incubator.foreign.MemorySegment;
-import jdk.incubator.foreign.ResourceScope;
 import org.libraw.libraw_colordata_t;
 import org.libraw.libraw_data_t;
 
@@ -15,18 +13,25 @@ import static jdk.incubator.foreign.CLinker.C_SHORT;
  * @author Jacob Andersen
  * @since 1.0.0-SNAPSHOT
  */
-public record ImageColorData(short[] toneCurve, int[] perChannelBlack, int black, int dataMaxPixelValue,
+public record ImageColorData(int[] toneCurve, long[] perChannelBlack, int black, int dataMaxPixelValue,
                              int maxPixelValue, long[] perChannelLinearMax, float maxFloatPixelValue,
                              float floatNormalizationCoefficient, short[][] whites, float[] asShotWhiteBalance,
                              float[] daylightWhiteBalance, float[][] colorMatrix, float[][] colorCorrectionMatrix,
                              float[][] camera2srgb, float[][] rgb2xyz, float flashUsed, float canonEv,
                              int[] blackLevelStats, int[][] whiteBalanceCoefficients,
-                             float[][] whiteBalanceColorTemperatureCoefficients, int asShotWbApplied, int exifColorSpace) {
-    public static ImageColorData load(MemoryAddress libraw, ResourceScope scope) {
-        MemorySegment data = libraw_data_t.color$slice(libraw_data_t.ofAddress(libraw, scope));
+                             float[][] whiteBalanceColorTemperatureCoefficients, boolean asShotWbApplied,
+                             int exifColorSpace) {
+    /**
+     * Loads the color data from the given memory segment.
+     *
+     * @param librawData The segment of memory containing the libraw data.
+     * @return the color data.
+     */
+    public static ImageColorData load(MemorySegment librawData) {
+        MemorySegment data = libraw_data_t.color$slice(librawData);
 
-        short[] toneCurve = libraw_colordata_t.curve$slice(data).toShortArray();
-        int[] perChannelBlack = libraw_colordata_t.cblack$slice(data).toIntArray();
+        int[] toneCurve = libraw_colordata_t.curve$slice(data).toIntArray();
+        long[] perChannelBlack = libraw_colordata_t.cblack$slice(data).toLongArray();
         int black = libraw_colordata_t.black$get(data);
         int dataMaxPixelValue = libraw_colordata_t.data_maximum$get(data);
         int maxPixelValue = libraw_colordata_t.maximum$get(data);
@@ -45,7 +50,7 @@ public record ImageColorData(short[] toneCurve, int[] perChannelBlack, int black
         int[] blackLevelStats = libraw_colordata_t.black_stat$slice(data).toIntArray();
         int[][] whiteBalanceCoefficients = libraw_colordata_t.WB_Coeffs$slice(data).elements(MemoryLayout.sequenceLayout(4, C_INT)).map(MemorySegment::toIntArray).toArray(int[][]::new);
         float[][] whiteBalanceColorTemperatureCoefficients = libraw_colordata_t.WBCT_Coeffs$slice(data).elements(MemoryLayout.sequenceLayout(5, C_FLOAT)).map(MemorySegment::toFloatArray).toArray(float[][]::new);
-        int asShotWbApplied = libraw_colordata_t.as_shot_wb_applied$get(data);
+        boolean asShotWbApplied = libraw_colordata_t.as_shot_wb_applied$get(data) == 1;
         int exifColorSpace = libraw_colordata_t.ExifColorSpace$get(data);
 
         return new ImageColorData(

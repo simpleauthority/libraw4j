@@ -5,7 +5,8 @@ package dev.jacobandersen.libraw4j.core.data.constants;
  * @since 1.0.0-SNAPSHOT
  */
 public enum FocalType {
-    UNDEFINED(0),
+    UNDEFINED(-1),
+    UNKNOWN(0),
     PRIME(1),
     ZOOM(2),
     ZOOM_CONSTANT_APERTURE(3),

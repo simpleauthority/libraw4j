@@ -144,3 +144,7 @@ gradle-app.setting
 .classpath
 
 # End of https://www.toptal.com/developers/gitignore/api/java,intellij+all,gradle
+
+# Project specific
+libraw4j-sample/testing/
+libraw4j-sample/output/

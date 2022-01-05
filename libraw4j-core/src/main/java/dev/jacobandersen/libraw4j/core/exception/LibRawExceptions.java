@@ -32,7 +32,7 @@ public enum LibRawExceptions {
         this.defaultMessage = defaultMessage;
     }
 
-    private static LibRawExceptions getByCode(int code) {
+    private static LibRawExceptions getConstantByCode(int code) {
         for (LibRawExceptions e : LibRawExceptions.values()) {
             if (e.code == code) {
                 return e;
@@ -43,27 +43,17 @@ public enum LibRawExceptions {
         return NONE;
     }
 
-    public static void throwByCode(int code) {
-        throwByCode(code, null);
-    }
+    public static LibRawException getByCode(int code) {
+        LibRawExceptions constant = getConstantByCode(code);
 
-    public static void throwByCode(int code, String message) throws LibRawException {
-        LibRawExceptions constant = getByCode(code);
-
-        LibRawException exception = null;
+        LibRawException exception;
 
         try {
-            exception = getByCode(code).exceptionClass.getConstructor(String.class)
-                    .newInstance(message == null ? constant.defaultMessage : message);
+            exception = constant.exceptionClass.getConstructor(String.class).newInstance(constant.defaultMessage);
         } catch (NoSuchMethodException | InvocationTargetException | InstantiationException | IllegalAccessException exceptionWhileFindingException) {
-            // This is an authentic bruh moment.
-            Logger.error(exceptionWhileFindingException, "An error occurred while finding the LibRaw exception class.");
+            return new LibRawException(String.format("An error occurred while creating a LibRawException with code %d.", code), exceptionWhileFindingException);
         }
 
-        if (exception == null) {
-            Logger.warn("An unknown LibRawException occurred with code {}.", code);
-        } else {
-            throw exception;
-        }
+        return exception;
     }
 }

@@ -1,16 +1,11 @@
 package dev.jacobandersen.libraw4j.core.data.component.camera.subcomponents;
 
 import dev.jacobandersen.libraw4j.core.data.constants.ColorSpace;
-import jdk.incubator.foreign.MemoryAddress;
+import dev.jacobandersen.libraw4j.core.util.StringUtil;
 import jdk.incubator.foreign.MemorySegment;
-import jdk.incubator.foreign.ResourceScope;
 import org.libraw.libraw_data_t;
-import org.libraw.libraw_h;
-import org.libraw.libraw_iparams_t;
 import org.libraw.libraw_makernotes_t;
 import org.libraw.libraw_metadata_common_t;
-
-import java.nio.charset.StandardCharsets;
 
 /**
  * @author Jacob Andersen
@@ -20,10 +15,17 @@ public record CameraMetadata(float flashExposureCompensation, float flashGuideNu
                              float sensorTemperature, float sensorTemperature2, float lensTemperature,
                              float ambientTemperature, float batteryTemperature, float exifAmbientTemperature,
                              float exifHumidity, float exifPressure, float exifWaterDepth, float exifAcceleration,
-                             float exifCameraElevationAngle, float realISO, float exifExposureIndex, short rawColorSpace,
+                             float exifCameraElevationAngle, float realISO, float exifExposureIndex,
+                             short rawColorSpace,
                              ColorSpace colorSpace, String firmware) {
-    public static CameraMetadata load(MemoryAddress libraw, ResourceScope scope) {
-        MemorySegment data = libraw_data_t.makernotes$slice(libraw_data_t.ofAddress(libraw, scope));
+    /**
+     * Loads the camera metadata from the given memory segment.
+     *
+     * @param librawData The segment of memory containing the libraw data.
+     * @return the camera metadata.
+     */
+    public static CameraMetadata load(MemorySegment librawData) {
+        MemorySegment data = libraw_data_t.makernotes$slice(librawData);
 
         MemorySegment common = libraw_makernotes_t.common$slice(data);
         float flashExposureCompensation = libraw_metadata_common_t.FlashEC$get(common);
@@ -44,7 +46,7 @@ public record CameraMetadata(float flashExposureCompensation, float flashGuideNu
         float exifExposureIndex = libraw_metadata_common_t.exifExposureIndex$get(common);
         short rawColorSpace = libraw_metadata_common_t.ColorSpace$get(common);
         ColorSpace colorSpace = ColorSpace.fromValue(rawColorSpace);
-        String firmware = new String(libraw_metadata_common_t.firmware$slice(common).toByteArray(), StandardCharsets.UTF_8);
+        String firmware = StringUtil.readNullTerminatedString(libraw_metadata_common_t.firmware$slice(common).toByteArray());
 
         // TODO: manufacturer specific metadata
 

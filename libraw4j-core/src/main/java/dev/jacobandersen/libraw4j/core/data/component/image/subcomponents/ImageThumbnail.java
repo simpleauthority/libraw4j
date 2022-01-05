@@ -1,18 +1,27 @@
 package dev.jacobandersen.libraw4j.core.data.component.image.subcomponents;
 
-import jdk.incubator.foreign.MemoryAddress;
 import jdk.incubator.foreign.MemorySegment;
-import jdk.incubator.foreign.ResourceScope;
 import org.libraw.libraw_data_t;
 import org.libraw.libraw_thumbnail_t;
+
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
 
 /**
  * @author Jacob Andersen
  * @since 1.0.0-SNAPSHOT
  */
 public record ImageThumbnail(DataFormat format, short width, short height, int length, int colors, byte[] imageBytes) {
-    public static ImageThumbnail load(MemoryAddress libraw, ResourceScope scope) {
-        MemorySegment data = libraw_data_t.thumbnail$slice(libraw_data_t.ofAddress(libraw, scope));
+    /**
+     * Loads the embedded thumbnail from the give memory segment.
+     *
+     * @param librawData The segment of memory containing the libraw data.
+     * @return the thumbnail data.
+     */
+    public static ImageThumbnail load(MemorySegment librawData) {
+        MemorySegment data = libraw_data_t.thumbnail$slice(librawData);
 
         int thumbnailFormatIndex = libraw_thumbnail_t.tformat$get(data);
         DataFormat thumbnailFormat = DataFormat.fromValue(thumbnailFormatIndex);
@@ -20,9 +29,13 @@ public record ImageThumbnail(DataFormat format, short width, short height, int l
         short height = libraw_thumbnail_t.theight$get(data);
         int length = libraw_thumbnail_t.tlength$get(data);
         int colors = libraw_thumbnail_t.tcolors$get(data);
-        byte[] imageBytes = libraw_thumbnail_t.thumb$get(data).asSegment(length, scope).toByteArray();
+        byte[] imageBytes = libraw_thumbnail_t.thumb$get(data).asSegment(length, data.scope()).toByteArray();
 
         return new ImageThumbnail(thumbnailFormat, width, height, length, colors, imageBytes);
+    }
+
+    public BufferedImage asBufferedImage() throws IOException {
+        return ImageIO.read(new ByteArrayInputStream(imageBytes));
     }
 
     public enum DataFormat {

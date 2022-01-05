@@ -1,19 +1,24 @@
 package dev.jacobandersen.libraw4j.core.data.component.image.subcomponents;
 
-import jdk.incubator.foreign.MemoryAddress;
 import jdk.incubator.foreign.MemorySegment;
-import jdk.incubator.foreign.ResourceScope;
+import org.libraw.libraw_data_t;
 import org.libraw.libraw_gps_info_t;
-import org.libraw.libraw_h;
 import org.libraw.libraw_imgother_t;
 
 /**
  * @author Jacob Andersen
  * @since 1.0.0-SNAPSHOT
  */
-public record ImageGpsData(int[] raw, GpsComponents latitude, GpsComponents longitude, GpsComponents timestamp, float altitude) {
-    public static ImageGpsData load(MemoryAddress libraw, ResourceScope scope) {
-        MemorySegment data = libraw_imgother_t.ofAddress(libraw_h.libraw_get_imgother(libraw), scope);
+public record ImageGpsData(int[] raw, GpsComponents latitude, GpsComponents longitude, GpsComponents timestamp,
+                           float altitude) {
+    /**
+     * Loads the GPS data from the given memory segment.
+     *
+     * @param librawData The segment of memory containing the libraw data.
+     * @return The GPS data.
+     */
+    public static ImageGpsData load(MemorySegment librawData) {
+        MemorySegment data = libraw_data_t.other$slice(librawData);
         MemorySegment gpsData = libraw_imgother_t.parsed_gps$slice(data);
 
         int[] raw = libraw_imgother_t.gpsdata$slice(data).toIntArray();

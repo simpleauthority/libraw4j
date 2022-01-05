@@ -40,7 +40,7 @@ public final class LibRaw {
         } else if (OperatingSystemUtil.isMac()) {
             NativeUtil.loadLibraryFromJar("/lib/mac/x64/libraw_r.20.dylib");
         } else if (OperatingSystemUtil.isUnix()) {
-            NativeUtil.loadLibraryFromJar(("/lib/linux/x64/libraw_r.20.so"));
+            NativeUtil.loadLibraryFromJar(("/lib/linux/x64/libraw_r.so.20"));
         } else {
             throw new IllegalStateException(String.format("Unsupported operating system %s!", OperatingSystemUtil.OS));
         }

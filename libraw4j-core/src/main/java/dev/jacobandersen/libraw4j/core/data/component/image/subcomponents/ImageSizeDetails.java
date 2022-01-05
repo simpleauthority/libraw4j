@@ -1,9 +1,7 @@
 package dev.jacobandersen.libraw4j.core.data.component.image.subcomponents;
 
 import dev.jacobandersen.libraw4j.core.data.constants.AspectRatio;
-import jdk.incubator.foreign.MemoryAddress;
 import jdk.incubator.foreign.MemorySegment;
-import jdk.incubator.foreign.ResourceScope;
 import org.libraw.libraw_data_t;
 import org.libraw.libraw_image_sizes_t;
 
@@ -17,12 +15,13 @@ public record ImageSizeDetails(short rawHeight, short rawWidth, short meaningful
                                short outputHeight, short outputWidth, short topMargin, short leftMargin,
                                double pixelAspect, AspectRatio aspectRatio, int flip, Orientation orientation) {
     /**
-     * Load the image size details from the given LibRawImage.
+     * Loads the image size details from the given memory segment.
      *
-     * @return the image size details
+     * @param librawData The segment of memory containing the libraw data.
+     * @return The image size details.
      */
-    public static ImageSizeDetails load(MemoryAddress libraw, ResourceScope scope) {
-        MemorySegment data = libraw_data_t.sizes$slice(libraw_data_t.ofAddress(libraw, scope));
+    public static ImageSizeDetails load(MemorySegment librawData) {
+        MemorySegment data = libraw_data_t.sizes$slice(librawData);
 
         short rawHeight = libraw_image_sizes_t.raw_height$get(data);
         short rawWidth = libraw_image_sizes_t.raw_width$get(data);

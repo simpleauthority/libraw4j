@@ -8,9 +8,9 @@ public enum LensMount {
     UNKNOWN(0),
     ALPA(1),
     C(2),  // C-mount
-    CANON_EF(3),
-    CANON_EF_M(4),
-    CANON_EF_S(5),
+    CANON_EF_M(3),
+    CANON_EF_S(4),
+    CANON_EF(5),
     CANON_RF(6),
     CONTAX_N(7),
     CONTAX645(8),
@@ -34,20 +34,22 @@ public enum LensMount {
     NIKON_CX(26), // Nikon 1 series
     NIKON_F(27),
     NIKON_Z(28),
-    PENTAX_645(29),
-    PENTAX_K(30),
-    PENTAX_Q(31),
-    RICOHMODULE(32),
-    ROLLEI_BAYONET(33), // used in Rollei Hy-6: Leaf AFi, Sinar Hy6 models
-    SAMSUNG_NX_M(34),
-    SAMSUNG_NX(35),
-    SIGMA_X3F(36),
-    SONY_E(37),
-    LF(38),
-    DIGITALBACK(39),
-    FIXEDLENS(40), // lens is fixed
-    INTERCHANGEABLE_UNKNOWN(41), // definitely interchangeable but unknown mount
-    THELASTONE(42);  // no idea what this is but it's in the libraw headers
+    PHASEONE_IXM_MV(29),
+    PHASEONE_IXM_RS(30),
+    PHASEONE_IXM(31),
+    PENTAX_645(32),
+    PENTAX_K(33),
+    PENTAX_Q(34),
+    RICOHMODULE(35),
+    ROLLEI_BAYONET(36), // used in Rollei Hy-6: Leaf AFi, Sinar Hy6 models
+    SAMSUNG_NX_M(37),
+    SAMSUNG_NX(38),
+    SIGMA_X3F(39),
+    SONY_E(40),
+    LF(41),
+    DIGITALBACK(42),
+    FIXEDLENS(43), // lens is fixed
+    INTERCHANGEABLE_UNKNOWN(44); // definitely interchangeable but unknown mount
 
     private final int value;
 

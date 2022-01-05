@@ -5,8 +5,7 @@ import dev.jacobandersen.libraw4j.core.data.component.image.subcomponents.ImageC
 import dev.jacobandersen.libraw4j.core.data.component.image.subcomponents.ImageGpsData;
 import dev.jacobandersen.libraw4j.core.data.component.image.subcomponents.ImageSizeDetails;
 import dev.jacobandersen.libraw4j.core.data.component.image.subcomponents.ImageThumbnail;
-import jdk.incubator.foreign.MemoryAddress;
-import jdk.incubator.foreign.ResourceScope;
+import jdk.incubator.foreign.MemorySegment;
 
 /**
  * @author Jacob Andersen
@@ -17,16 +16,15 @@ public record ImageDetails(ImageBasicData basic, ImageColorData colors, ImageGps
     /**
      * Loads image details from the given memory address.
      *
-     * @param libraw the libraw instance
-     * @param scope  the scope to use
+     * @param librawData The segment of memory containing the libraw data.
      * @return the loaded image details
      */
-    public static ImageDetails load(MemoryAddress libraw, ResourceScope scope) {
-        ImageBasicData basic = ImageBasicData.load(libraw, scope);
-        ImageColorData colors = ImageColorData.load(libraw, scope);
-        ImageGpsData gps = ImageGpsData.load(libraw, scope);
-        ImageSizeDetails size = ImageSizeDetails.load(libraw, scope);
-        ImageThumbnail thumbnail = ImageThumbnail.load(libraw, scope);
+    public static ImageDetails load(MemorySegment librawData) {
+        ImageBasicData basic = ImageBasicData.load(librawData);
+        ImageColorData colors = ImageColorData.load(librawData);
+        ImageGpsData gps = ImageGpsData.load(librawData);
+        ImageSizeDetails size = ImageSizeDetails.load(librawData);
+        ImageThumbnail thumbnail = ImageThumbnail.load(librawData);
 
         return new ImageDetails(basic, colors, gps, size, thumbnail);
     }

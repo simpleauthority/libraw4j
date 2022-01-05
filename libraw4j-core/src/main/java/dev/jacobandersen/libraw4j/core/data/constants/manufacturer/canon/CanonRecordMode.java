@@ -21,20 +21,20 @@ public enum CanonRecordMode {
     CR3_JPEG(13),
     HEIF(14),
     CR3_HEIF(15);
-    
+
     private final int value;
-    
+
     CanonRecordMode(int value) {
         this.value = value;
     }
-    
+
     public static CanonRecordMode fromValue(int value) {
         for (CanonRecordMode mode : values()) {
             if (mode.value == value) {
                 return mode;
             }
         }
-     
+
         throw new IllegalArgumentException("No CanonRecordMode with value " + value);
     }
 }
