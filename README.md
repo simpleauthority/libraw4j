@@ -1,4 +1,6 @@
 ## libraw4j <small>(1.0.0-SNAPSHOT)</small>
+**This is heavily W.I.P. Help is welcome!**
+
 Java interface to the [libraw](https://www.libraw.org) library.
 
 Used for reading data from raw images.
