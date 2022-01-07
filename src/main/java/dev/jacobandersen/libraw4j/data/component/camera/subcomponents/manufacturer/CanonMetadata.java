@@ -1,5 +1,6 @@
 package dev.jacobandersen.libraw4j.data.component.camera.subcomponents.manufacturer;
 
+import dev.jacobandersen.libraw4j.util.StringUtil;
 import jdk.incubator.foreign.MemorySegment;
 import org.libraw.libraw_canon_makernotes_t;
 
@@ -13,7 +14,7 @@ public record CanonMetadata(int colorDataVersion, int colorDataSubVersion, int s
                             byte flashMeteringMode, short flashExposureLock, short exposureMode,
                             short autoexposureSetting,
                             byte highlightTonePriority, short imageStabilization, short focusMode, short autofocusPoint,
-                            short focusContinuous, short autofocusPointsInFocus30D, char[] autofocusPointsInFocus1D,
+                            short focusContinuous, short autofocusPointsInFocus30D, String autofocusPointsInFocus1D,
                             short autofocusPointsInFocus5D, short autofocusAreaMode, short numberOfAutofocusPoints,
                             short validAutofocusPoints, short autofocusImageWidth, short autofocusImageHeight,
                             short[] autofocusAreaWidths, short[] autofocusAreaHeights, short[] autofocusAreaXPositions,
@@ -54,7 +55,7 @@ public record CanonMetadata(int colorDataVersion, int colorDataSubVersion, int s
         short autofocusPoint = libraw_canon_makernotes_t.AFPoint$get(data);
         short focusContinuous = libraw_canon_makernotes_t.FocusContinuous$get(data);
         short autofocusPointsInFocus30D = libraw_canon_makernotes_t.AFPointsInFocus30D$get(data);
-        char[] autofocusPointsInFocus1D = libraw_canon_makernotes_t.AFPointsInFocus1D$slice(data).toCharArray();
+        String autofocusPointsInFocus1D = StringUtil.readNullTerminatedString(libraw_canon_makernotes_t.AFPointsInFocus1D$slice(data).toByteArray());
         short autofocusPointsInFocus5D = libraw_canon_makernotes_t.AFPointsInFocus5D$get(data);
         short autofocusAreaMode = libraw_canon_makernotes_t.AFAreaMode$get(data);
         short numberOfAutofocusPoints = libraw_canon_makernotes_t.NumAFPoints$get(data);

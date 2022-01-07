@@ -28,7 +28,7 @@ public record CameraDetails(String make, String normalizedMake, String model, St
         String normalizedModel = StringUtil.readNullTerminatedString(libraw_iparams_t.normalized_model$slice(librawImageParams).toByteArray());
         int makerIndex = libraw_iparams_t.maker_index$get(librawImageParams);
         CameraMaker maker = CameraMaker.fromValue(makerIndex);
-        CameraMetadata metadata = CameraMetadata.load(librawData);
+        CameraMetadata metadata = CameraMetadata.load(maker, librawData);
 
         return new CameraDetails(make, normalizedMake, model, normalizedModel, makerIndex, maker, metadata);
     }

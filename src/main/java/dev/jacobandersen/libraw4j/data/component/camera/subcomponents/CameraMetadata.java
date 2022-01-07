@@ -1,6 +1,7 @@
 package dev.jacobandersen.libraw4j.data.component.camera.subcomponents;
 
 import dev.jacobandersen.libraw4j.data.component.camera.subcomponents.manufacturer.ManufacturerMetadata;
+import dev.jacobandersen.libraw4j.data.constants.CameraMaker;
 import dev.jacobandersen.libraw4j.data.constants.ColorSpace;
 import dev.jacobandersen.libraw4j.util.StringUtil;
 import jdk.incubator.foreign.MemorySegment;
@@ -25,7 +26,7 @@ public record CameraMetadata(float flashExposureCompensation, float flashGuideNu
      * @param librawData The segment of memory containing the libraw data.
      * @return the camera metadata.
      */
-    public static CameraMetadata load(MemorySegment librawData) {
+    public static CameraMetadata load(CameraMaker cameraMaker, MemorySegment librawData) {
         MemorySegment data = libraw_data_t.makernotes$slice(librawData);
 
         MemorySegment common = libraw_makernotes_t.common$slice(data);
@@ -48,7 +49,7 @@ public record CameraMetadata(float flashExposureCompensation, float flashGuideNu
         short rawColorSpace = libraw_metadata_common_t.ColorSpace$get(common);
         ColorSpace colorSpace = ColorSpace.fromValue(rawColorSpace);
         String firmware = StringUtil.readNullTerminatedString(libraw_metadata_common_t.firmware$slice(common).toByteArray());
-        ManufacturerMetadata manufacturer = ManufacturerMetadata.load(data);
+        ManufacturerMetadata manufacturer = ManufacturerMetadata.load(cameraMaker, data);
 
         return new CameraMetadata(
                 flashExposureCompensation, flashGuideNumber, cameraTemperature, sensorTemperature, sensorTemperature2,
