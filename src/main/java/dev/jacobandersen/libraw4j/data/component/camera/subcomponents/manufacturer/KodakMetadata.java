@@ -12,7 +12,8 @@ import static jdk.incubator.foreign.CLinker.C_FLOAT;
  */
 public record KodakMetadata(short blackLevelTop, short blackLevelBottom, short offsetLeft, short offsetTop,
                             short clipBlack, short clipWhite, float[][] rommCamDaylight, float[][] rommCamTungsten,
-                            float[][] rommCamFluorescent, float[][] rommCamFlash, float[][] rommCamCustom, float[][] rommCamAuto,
+                            float[][] rommCamFluorescent, float[][] rommCamFlash, float[][] rommCamCustom,
+                            float[][] rommCamAuto,
                             short val018Percent, short val100Percent, short val170Percent, short makerNoteKodak8a,
                             float isoCalibrationGain, float analogISO) {
 

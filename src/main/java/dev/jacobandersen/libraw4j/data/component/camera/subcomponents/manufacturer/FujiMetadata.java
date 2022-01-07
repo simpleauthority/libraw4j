@@ -11,11 +11,14 @@ import org.tinylog.Logger;
  */
 public record FujiMetadata(float exposureMidPointShift, short dynamicRange, short filmMode, short dynamicRangeSetting,
                            short developmentDynamicRange, short autoDynamicRange, short dynamicRangePriority,
-                           short dynamicRangePriorityAuto, short dynamicRangePriorityFixed, float brightnessCompensation,
+                           short dynamicRangePriorityAuto, short dynamicRangePriorityFixed,
+                           float brightnessCompensation,
                            short focusMode, short autofocusMode, short[] focusPixel, short[] imageStabilization,
                            short flashMode, short whiteBalancePreset, short rawShutterType, FujiShutterType shutterType,
-                           short exrMode, short macro, int rating, short rawCropMode, FujiCropMode cropMode, short frameRate,
-                           short frameWidth, short frameHeight, String serialSignature, String rafVersion, short rafDataVersion,
+                           short exrMode, short macro, int rating, short rawCropMode, FujiCropMode cropMode,
+                           short frameRate,
+                           short frameWidth, short frameHeight, String serialSignature, String rafVersion,
+                           short rafDataVersion,
                            short rawDriveMode, FujiDriveMode driveMode) {
 
     /**

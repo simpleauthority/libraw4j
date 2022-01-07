@@ -2,27 +2,31 @@ package dev.jacobandersen.libraw4j.data.component.camera.subcomponents.manufactu
 
 import jdk.incubator.foreign.MemorySegment;
 import org.libraw.libraw_canon_makernotes_t;
-import org.libraw.libraw_makernotes_t;
 
 /**
  * @author Jacob Andersen
  * @since 1.0.0-SNAPSHOT
  */
 public record CanonMetadata(int colorDataVersion, int colorDataSubVersion, int specularWhiteLevel, int normalWhiteLevel,
-                            int[] channelBlackLevel, int averageBlackLevel, int[] multishot, short meteringMode, short spotMeteringMode,
-                            byte flashMeteringMode, short flashExposureLock, short exposureMode, short autoexposureSetting,
+                            int[] channelBlackLevel, int averageBlackLevel, int[] multishot, short meteringMode,
+                            short spotMeteringMode,
+                            byte flashMeteringMode, short flashExposureLock, short exposureMode,
+                            short autoexposureSetting,
                             byte highlightTonePriority, short imageStabilization, short focusMode, short autofocusPoint,
                             short focusContinuous, short autofocusPointsInFocus30D, char[] autofocusPointsInFocus1D,
                             short autofocusPointsInFocus5D, short autofocusAreaMode, short numberOfAutofocusPoints,
                             short validAutofocusPoints, short autofocusImageWidth, short autofocusImageHeight,
                             short[] autofocusAreaWidths, short[] autofocusAreaHeights, short[] autofocusAreaXPositions,
-                            short[] autofocusAreaYPositions, short[] autofocusPointsInFocus, short[] autofocusPointsSelected,
+                            short[] autofocusAreaYPositions, short[] autofocusPointsInFocus,
+                            short[] autofocusPointsSelected,
                             short primaryAutofocusPoint, short flashMode, short flashActivity, short flashBits,
                             short manualFlashOutput, short flashOutput, short flashGuideNumber, short continuousDrive,
                             short sensorWidth, short sensorHeight, short sensorLeftBorder, short sensorTopBorder,
-                            short sensorRightBorder, short sensorBottomBorder, short blackMaskLeftBorder, short blackMaskTopBorder,
+                            short sensorRightBorder, short sensorBottomBorder, short blackMaskLeftBorder,
+                            short blackMaskTopBorder,
                             short blackMaskRightBorder, short blackMaskBottomBorder, int autofocusMicroadjustmentMode,
-                            float autofocusMicroadjustmentValue, short makernotesFlip, short recordMode, short srawQuality) {
+                            float autofocusMicroadjustmentValue, short makernotesFlip, short recordMode,
+                            short srawQuality) {
 
     /**
      * Load the Canon makernotes from the given memory segment.

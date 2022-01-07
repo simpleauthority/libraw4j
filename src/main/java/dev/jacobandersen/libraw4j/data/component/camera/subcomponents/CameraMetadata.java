@@ -16,7 +16,8 @@ public record CameraMetadata(float flashExposureCompensation, float flashGuideNu
                              float sensorTemperature, float sensorTemperature2, float lensTemperature,
                              float ambientTemperature, float batteryTemperature, float exifAmbientTemperature,
                              float exifHumidity, float exifPressure, float exifWaterDepth, float exifAcceleration,
-                             float exifCameraElevationAngle, float realISO, float exifExposureIndex, short rawColorSpace,
+                             float exifCameraElevationAngle, float realISO, float exifExposureIndex,
+                             short rawColorSpace,
                              ColorSpace colorSpace, String firmware, ManufacturerMetadata manufacturer) {
     /**
      * Loads the camera metadata from the given memory segment.

@@ -39,7 +39,7 @@ public record PentaxMetadata(short focusMode, short autofocusPointSelected, int 
         RAW_DYNAMIC_PIXEL_SHIFT(8),
         UNKNOWN(-1);
 
-        private int value;
+        private final int value;
 
         PentaxQuality(int value) {
             this.value = value;

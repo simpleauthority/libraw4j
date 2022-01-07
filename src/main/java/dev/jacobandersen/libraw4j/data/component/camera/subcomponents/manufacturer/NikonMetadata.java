@@ -19,16 +19,20 @@ public record NikonMetadata(double exposureBracketValue, short activeDynamicLigh
                             short autofocusAreaWidth, short autofocusAreaHeight, byte contrastDetectAutofocusInFocus,
                             String flashSetting, String flashType, byte[] flashExposureCompensation,
                             byte[] externalFlashExposureCompensation, byte[] flashExposureBracketValue, byte flashMode,
-                            byte flashExposureCompensation2, byte flashExposureCompensation3, byte flashExposureCompensation4,
-                            byte flashSource, byte[] flashFirmware, byte externalFlashFlags, byte flashControlCommanderMode,
+                            byte flashExposureCompensation2, byte flashExposureCompensation3,
+                            byte flashExposureCompensation4,
+                            byte flashSource, byte[] flashFirmware, byte externalFlashFlags,
+                            byte flashControlCommanderMode,
                             byte flashOutputAndCompensation, byte flashFocalLength, byte flashGuideNumberDistance,
                             byte[] flashGroupControlMode, byte[] flashGroupOutputAndCompensation, byte flashColorFilter,
                             short nefCompression, int exposureMode, int exposureProgram, int nMEShots, int meGainOn,
                             double[] meWhiteBalance, byte autofocusFineTune, byte autofocusFineTuneIndex,
                             int autofocusFineTuneAdjustment, int lensDataVersion, int flashInfoVersion,
                             int colorBalanceVersion, byte key, short[] nefBitDepth, short rawHighSpeedCropFormat,
-                            NikonHighSpeedCropFormat highSpeedCropFormat, short highSpeedCropLeft, short highSpeedCropTop,
-                            short highSpeedCropWidth, short highSpeedCropHeight, short sensorWidth, short sensorHeight) {
+                            NikonHighSpeedCropFormat highSpeedCropFormat, short highSpeedCropLeft,
+                            short highSpeedCropTop,
+                            short highSpeedCropWidth, short highSpeedCropHeight, short sensorWidth,
+                            short sensorHeight) {
     /**
      * Load the Nikon makernotes from the given memory segment.
      *

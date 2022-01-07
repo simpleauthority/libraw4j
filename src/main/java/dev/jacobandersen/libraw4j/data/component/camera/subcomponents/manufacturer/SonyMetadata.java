@@ -10,20 +10,24 @@ import org.tinylog.Logger;
  * @since 1.0.0-SNAPSHOT
  */
 public record SonyMetadata(short cameraType, byte sony0x9400Version, byte sony0x9400ReleaseMode2,
-                           int sony0x9400SequenceImageNumber, byte sony0x9400SequenceLength1, int sony0x9400SequenceFileNumber,
+                           int sony0x9400SequenceImageNumber, byte sony0x9400SequenceLength1,
+                           int sony0x9400SequenceFileNumber,
                            byte sony0x9400SequenceLength2, int autofocusAreaModeSetting, short[] flexibleSpotPosition,
-                           int autofocusPointSelected, int[] autofocusPointsUsed, int autofocusTracking, int autofocusType,
+                           int autofocusPointSelected, int[] autofocusPointsUsed, int autofocusTracking,
+                           int autofocusType,
                            short[] focusLocation, int autofocusMicroadjustmentValue, int autofocusMicroadjustmentOn,
                            byte autofocusMicroadjustmentRegisteredLenses, short variableLowPassFilter,
                            int longExposureNoiseReduction, short highISONoiseReduction, short[] hdr,
                            short group2010, short realISOOffset, short meteringModeOffset, short exposureProgramOffset,
                            short releaseMode2Offset, int minoltaCamId, float firmware, short imageCount3Offset,
                            int imageCount3, int electronicFrontCurtainShutter, short meteringMode2, String sonyDateTime,
-                           int shotNumberSincePowerUp, short pixelShiftGroupPrefix, int pixelShiftGroupId, byte numberShotsInPixelShiftGroup,
+                           int shotNumberSincePowerUp, short pixelShiftGroupPrefix, int pixelShiftGroupId,
+                           byte numberShotsInPixelShiftGroup,
                            int numberInPixelShiftGroup, short prdImageHeight, short prdImageWidth, short prdRawBitDepth,
                            short rawPrdStorageMethod, SonyPrdStorageMethod prdStorageMethod, short rawPrdBayerPattern,
                            short rawSonyRawFileType, SonySonyRawFileType sonySonyRawFileType, short rawRawFileType,
-                           SonyRawFileType rawFileType, int rawQuality, SonyQuality quality, short rawFileFormat, SonyFileFormat fileFormat) {
+                           SonyRawFileType rawFileType, int rawQuality, SonyQuality quality, short rawFileFormat,
+                           SonyFileFormat fileFormat) {
 
     /**
      * Load the Sony makernotes from the given memory segment.
@@ -102,7 +106,8 @@ public record SonyMetadata(short cameraType, byte sony0x9400Version, byte sony0x
         LINEAR(89),
         UNKNOWN(-1);
 
-        SonyPrdStorageMethod(int value) {}
+        SonyPrdStorageMethod(int value) {
+        }
 
         public static SonyPrdStorageMethod valueOf(int value) {
             return switch (value) {
@@ -120,7 +125,8 @@ public record SonyMetadata(short cameraType, byte sony0x9400Version, byte sony0x
         LOSSLESS_COMPRESSED(3),
         UNKNOWN(-1);
 
-        SonySonyRawFileType(int value) {}
+        SonySonyRawFileType(int value) {
+        }
 
         public static SonySonyRawFileType valueOf(int value) {
             return switch (value) {
@@ -138,7 +144,8 @@ public record SonyMetadata(short cameraType, byte sony0x9400Version, byte sony0x
         UNCOMPRESSED(1),
         UNKNOWN(-1);
 
-        SonyRawFileType(int value) {}
+        SonyRawFileType(int value) {
+        }
 
         public static SonyRawFileType valueOf(int value) {
             return switch (value) {

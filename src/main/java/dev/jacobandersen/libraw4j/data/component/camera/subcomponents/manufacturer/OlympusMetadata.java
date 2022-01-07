@@ -10,7 +10,8 @@ import org.libraw.libraw_olympus_makernotes_t;
  */
 public record OlympusMetadata(int[] sensorCalibration, short[] focusMode, short autoFocus, short autofocusPoint,
                               int[] autofocusAreas, double[] autofocusPointSelected, short autofocusResult,
-                              short[] driveMode, short colorSpace, byte autofocusFineTune, short[] autofocusFineAdjustment,
+                              short[] driveMode, short colorSpace, byte autofocusFineTune,
+                              short[] autofocusFineAdjustment,
                               String cameraType2) {
 
     /**

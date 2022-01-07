@@ -9,8 +9,10 @@ import org.libraw.libraw_hasselblad_makernotes_t;
  * @since 1.0.0-SNAPSHOT
  */
 public record HasselbladMetadata(int baseISO, double gain, String sensor, String sensorUnit, String hostBody,
-                                 int sensorCode, int sensorSubCode, int coatingCode, int uncropped, String captureSequenceInitiator,
-                                 String sensorUnitConnector, int format, int[] nifdCm, int[] recommendedCrop, double[] mnColorMatrix) {
+                                 int sensorCode, int sensorSubCode, int coatingCode, int uncropped,
+                                 String captureSequenceInitiator,
+                                 String sensorUnitConnector, int format, int[] nifdCm, int[] recommendedCrop,
+                                 double[] mnColorMatrix) {
 
     /**
      * Load the Hasselblad makernotes from the given memory segment.
