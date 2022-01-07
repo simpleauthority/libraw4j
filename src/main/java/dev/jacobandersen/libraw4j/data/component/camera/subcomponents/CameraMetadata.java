@@ -1,5 +1,6 @@
 package dev.jacobandersen.libraw4j.data.component.camera.subcomponents;
 
+import dev.jacobandersen.libraw4j.data.component.camera.subcomponents.manufacturer.ManufacturerMetadata;
 import dev.jacobandersen.libraw4j.data.constants.ColorSpace;
 import dev.jacobandersen.libraw4j.util.StringUtil;
 import jdk.incubator.foreign.MemorySegment;
@@ -15,9 +16,8 @@ public record CameraMetadata(float flashExposureCompensation, float flashGuideNu
                              float sensorTemperature, float sensorTemperature2, float lensTemperature,
                              float ambientTemperature, float batteryTemperature, float exifAmbientTemperature,
                              float exifHumidity, float exifPressure, float exifWaterDepth, float exifAcceleration,
-                             float exifCameraElevationAngle, float realISO, float exifExposureIndex,
-                             short rawColorSpace,
-                             ColorSpace colorSpace, String firmware) {
+                             float exifCameraElevationAngle, float realISO, float exifExposureIndex, short rawColorSpace,
+                             ColorSpace colorSpace, String firmware, ManufacturerMetadata manufacturer) {
     /**
      * Loads the camera metadata from the given memory segment.
      *
@@ -47,14 +47,13 @@ public record CameraMetadata(float flashExposureCompensation, float flashGuideNu
         short rawColorSpace = libraw_metadata_common_t.ColorSpace$get(common);
         ColorSpace colorSpace = ColorSpace.fromValue(rawColorSpace);
         String firmware = StringUtil.readNullTerminatedString(libraw_metadata_common_t.firmware$slice(common).toByteArray());
-
-        // TODO: manufacturer specific metadata
+        ManufacturerMetadata manufacturer = ManufacturerMetadata.load(data);
 
         return new CameraMetadata(
                 flashExposureCompensation, flashGuideNumber, cameraTemperature, sensorTemperature, sensorTemperature2,
                 lensTemperature, ambientTemperature, batteryTemperature, exifAmbientTemperature, exifHumidity,
                 exifPressure, exifWaterDepth, exifAcceleration, exifCameraElevationAngle, realISO, exifExposureIndex,
-                rawColorSpace, colorSpace, firmware
+                rawColorSpace, colorSpace, firmware, manufacturer
         );
     }
 }
