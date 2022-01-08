@@ -8,6 +8,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * @author Jacob Andersen
@@ -36,6 +37,10 @@ public record ImageThumbnail(DataFormat format, short width, short height, int l
 
     public BufferedImage asBufferedImage() throws IOException {
         return ImageIO.read(new ByteArrayInputStream(imageBytes));
+    }
+
+    public InputStream asInputStream() {
+        return new ByteArrayInputStream(imageBytes);
     }
 
     public enum DataFormat {

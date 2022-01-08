@@ -1,6 +1,7 @@
 package dev.jacobandersen.libraw4j;
 
 import dev.jacobandersen.libraw4j.data.LibRawImage;
+import dev.jacobandersen.libraw4j.exception.LibRawException;
 import dev.jacobandersen.libraw4j.exception.LibRawExceptions;
 import jdk.incubator.foreign.CLinker;
 import jdk.incubator.foreign.MemoryAddress;
@@ -27,7 +28,7 @@ public class LibRawImageLoader {
      * @return the loaded image
      * @throws IllegalStateException if the image could not be loaded
      */
-    public static LibRawImage load(@NotNull File file) throws IllegalStateException {
+    public static LibRawImage load(@NotNull File file) throws LibRawException {
         try (ResourceScope scope = ResourceScope.newConfinedScope()) {
             MemoryAddress libraw = libraw_h.libraw_init(0);
 
@@ -56,11 +57,6 @@ public class LibRawImageLoader {
             libraw_h.libraw_close(libraw);
 
             return image;
-        } catch (Exception ex) {
-            throw new IllegalStateException(
-                    "Raw image did not load successfully! There may be errors in the log.",
-                    ex
-            );
         }
     }
 }
